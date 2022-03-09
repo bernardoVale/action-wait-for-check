@@ -11,6 +11,7 @@ export interface Options {
   owner: string
   repo: string
   ref: string
+  want: string
 }
 
 export const poll = async (options: Options): Promise<string> => {
@@ -22,7 +23,8 @@ export const poll = async (options: Options): Promise<string> => {
     intervalSeconds,
     owner,
     repo,
-    ref
+    ref,
+    want
   } = options
 
   let now = new Date().getTime()
@@ -30,7 +32,7 @@ export const poll = async (options: Options): Promise<string> => {
 
   while (now <= deadline) {
     log(
-      `Retrieving check runs named ${checkName} on ${owner}/${repo}@${ref}...`
+      `Retrieving check runs named ${checkName} on ${owner}/${repo}@${ref}... Want ${want}`
     )
     const result = await client.checks.listForRef({
       // eslint-disable-next-line @typescript-eslint/camelcase
