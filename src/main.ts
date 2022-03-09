@@ -6,6 +6,7 @@ async function run(): Promise<void> {
   try {
     const token = core.getInput('token', {required: true})
     const allowedStatus = core.getInput('allowedStatus')
+    core.info(`Allowed status: ${allowedStatus}`)
 
     const result = await poll({
       client: new GitHub(token),
